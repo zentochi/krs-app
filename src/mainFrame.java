@@ -1,14 +1,13 @@
 // @author Danuarta
-
 import javax.swing.DefaultListModel;
 
 public class mainFrame extends javax.swing.JFrame {
     DefaultListModel choose;
+    @SuppressWarnings("unchecked")
     public mainFrame() {
         initComponents();
         choose = new DefaultListModel();
-        
-        
+        ChoosenMataKuliahList.setModel(choose);
     }
     
     @SuppressWarnings("unchecked")
@@ -25,7 +24,7 @@ public class mainFrame extends javax.swing.JFrame {
         ChooseMataKuliahLabel = new javax.swing.JLabel();
         ChoosenMataKuliahLabel1 = new javax.swing.JLabel();
         ChooseMataKuliahtextField = new javax.swing.JTextField();
-        ChoosenMataKuliahtextField = new javax.swing.JTextField();
+        ChoosenMataKuliahAmountTextField = new javax.swing.JTextField();
         DeleteChoosenMataKuliahButton = new javax.swing.JButton();
         AngkatanLabel = new javax.swing.JLabel();
         AngkatanComboBox = new javax.swing.JComboBox<>();
@@ -46,11 +45,26 @@ public class mainFrame extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        MataKuliahList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                MataKuliahListValueChanged(evt);
+            }
+        });
         MataKuliahScrollPanel.setViewportView(MataKuliahList);
 
+        ChoosenMataKuliahList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                ChoosenMataKuliahListValueChanged(evt);
+            }
+        });
         ChoosenMataKuliahScrollPanel.setViewportView(ChoosenMataKuliahList);
 
         CopyButton.setText(">>");
+        CopyButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CopyButtonActionPerformed(evt);
+            }
+        });
 
         ChooseMataKuliahLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         ChooseMataKuliahLabel.setText("Pilih Mata kuliah");
@@ -59,11 +73,26 @@ public class mainFrame extends javax.swing.JFrame {
         ChoosenMataKuliahLabel1.setText("Banyaknya Mata Kuliah Terpilih");
 
         ChooseMataKuliahtextField.setEditable(false);
+        ChooseMataKuliahtextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChooseMataKuliahtextFieldActionPerformed(evt);
+            }
+        });
 
-        ChoosenMataKuliahtextField.setEditable(false);
-        ChoosenMataKuliahtextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChoosenMataKuliahAmountTextField.setEditable(false);
+        ChoosenMataKuliahAmountTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ChoosenMataKuliahAmountTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ChoosenMataKuliahAmountTextFieldActionPerformed(evt);
+            }
+        });
 
         DeleteChoosenMataKuliahButton.setText("Hapus MK Terpilih");
+        DeleteChoosenMataKuliahButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteChoosenMataKuliahButtonActionPerformed(evt);
+            }
+        });
 
         AngkatanLabel.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         AngkatanLabel.setText("Angkatan");
@@ -77,6 +106,11 @@ public class mainFrame extends javax.swing.JFrame {
         });
 
         CalculateButton.setText("Hitung Biaya");
+        CalculateButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CalculateButtonActionPerformed(evt);
+            }
+        });
 
         ResumeTextArea.setColumns(20);
         ResumeTextArea.setRows(5);
@@ -105,7 +139,7 @@ public class mainFrame extends javax.swing.JFrame {
                     .addComponent(ChoosenMataKuliahLabel)
                     .addComponent(ChoosenMataKuliahLabel1)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(ChoosenMataKuliahtextField)
+                        .addComponent(ChoosenMataKuliahAmountTextField)
                         .addGap(18, 18, 18)
                         .addComponent(DeleteChoosenMataKuliahButton, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(ChoosenMataKuliahScrollPanel)
@@ -135,7 +169,7 @@ public class mainFrame extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ChooseMataKuliahtextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ChoosenMataKuliahtextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ChoosenMataKuliahAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(DeleteChoosenMataKuliahButton))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -156,6 +190,71 @@ public class mainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_AngkatanComboBoxActionPerformed
+
+    private void MataKuliahListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_MataKuliahListValueChanged
+        // TODO add your handling code here:
+        int index = MataKuliahList.getSelectedIndex();
+        String kuliahList = MataKuliahList.getSelectedValue();
+        ChooseMataKuliahtextField.setText(kuliahList);
+    }//GEN-LAST:event_MataKuliahListValueChanged
+
+    private void CopyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CopyButtonActionPerformed
+        // TODO add your handling code here:
+        choose.addElement(MataKuliahList.getSelectedValue());
+        int size = choose.getSize();
+        ChoosenMataKuliahAmountTextField.setText(Integer.toString(size));
+    }//GEN-LAST:event_CopyButtonActionPerformed
+
+    private void CalculateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalculateButtonActionPerformed
+        // TODO add your handling code here:
+        int choosenMataKuliahAmount = Integer.parseInt(ChoosenMataKuliahAmountTextField.getText());
+        int i = AngkatanComboBox.getSelectedIndex();
+        String ChoosenAngkatanComboBox = AngkatanComboBox.getSelectedItem().toString();
+        
+        // hitung Biaya
+        int mataKuliahAmount = 0;
+        switch (i)
+        {
+            case 0 :
+                mataKuliahAmount = 1_000_000;
+                break;
+            case 1 :
+                mataKuliahAmount = 900_000;
+                break;
+            case 2 :
+                mataKuliahAmount = 800_000;
+                break;
+            default :
+                mataKuliahAmount = 500_000;
+        }
+        int price = mataKuliahAmount * choosenMataKuliahAmount;
+        
+        String resultText = "Anda angkatan : " + ChoosenAngkatanComboBox 
+        + "\nBanyaknya mata kuliah yang dipilih : " + Integer.toString(choosenMataKuliahAmount)
+        + "\nBiaya per mata kuliah : " + Integer.toString(price);
+        ResumeTextArea.setText(resultText);
+    }//GEN-LAST:event_CalculateButtonActionPerformed
+
+    private void ChoosenMataKuliahAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChoosenMataKuliahAmountTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChoosenMataKuliahAmountTextFieldActionPerformed
+
+    private void ChoosenMataKuliahListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ChoosenMataKuliahListValueChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChoosenMataKuliahListValueChanged
+
+    private void ChooseMataKuliahtextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ChooseMataKuliahtextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ChooseMataKuliahtextFieldActionPerformed
+
+    private void DeleteChoosenMataKuliahButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteChoosenMataKuliahButtonActionPerformed
+        // Get index from ChooseMataKuliahList and and remove by index
+        int index = ChoosenMataKuliahList.getSelectedIndex();
+        choose.remove(index);
+        int size = choose.getSize();
+        ChoosenMataKuliahAmountTextField.setText(Integer.toString(size));
+        
+    }//GEN-LAST:event_DeleteChoosenMataKuliahButtonActionPerformed
 
     public static void main(String args[]) {
         
@@ -194,11 +293,11 @@ public class mainFrame extends javax.swing.JFrame {
     private javax.swing.JButton CalculateButton;
     private javax.swing.JLabel ChooseMataKuliahLabel;
     private javax.swing.JTextField ChooseMataKuliahtextField;
+    private javax.swing.JTextField ChoosenMataKuliahAmountTextField;
     private javax.swing.JLabel ChoosenMataKuliahLabel;
     private javax.swing.JLabel ChoosenMataKuliahLabel1;
     private javax.swing.JList<String> ChoosenMataKuliahList;
     private javax.swing.JScrollPane ChoosenMataKuliahScrollPanel;
-    private javax.swing.JTextField ChoosenMataKuliahtextField;
     private javax.swing.JButton CopyButton;
     private javax.swing.JButton DeleteChoosenMataKuliahButton;
     private javax.swing.JLabel MataKuliahLabel;

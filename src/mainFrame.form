@@ -45,7 +45,7 @@
                   <Component id="ChoosenMataKuliahLabel" min="-2" max="-2" attributes="0"/>
                   <Component id="ChoosenMataKuliahLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="ChoosenMataKuliahtextField" max="32767" attributes="0"/>
+                      <Component id="ChoosenMataKuliahAmountTextField" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="DeleteChoosenMataKuliahButton" min="-2" pref="138" max="-2" attributes="0"/>
                   </Group>
@@ -85,7 +85,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="ChooseMataKuliahtextField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="ChoosenMataKuliahtextField" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="ChoosenMataKuliahAmountTextField" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="DeleteChoosenMataKuliahButton" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -141,6 +141,9 @@
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="MataKuliahListValueChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -160,6 +163,9 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="ChoosenMataKuliahListValueChanged"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
@@ -170,6 +176,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CopyButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="ChooseMataKuliahLabel">
       <Properties>
@@ -191,17 +200,26 @@
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChooseMataKuliahtextFieldActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="ChoosenMataKuliahtextField">
+    <Component class="javax.swing.JTextField" name="ChoosenMataKuliahAmountTextField">
       <Properties>
         <Property name="editable" type="boolean" value="false"/>
         <Property name="horizontalAlignment" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ChoosenMataKuliahAmountTextFieldActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="DeleteChoosenMataKuliahButton">
       <Properties>
         <Property name="text" type="java.lang.String" value="Hapus MK Terpilih"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="DeleteChoosenMataKuliahButtonActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="AngkatanLabel">
       <Properties>
@@ -236,6 +254,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Hitung Biaya"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CalculateButtonActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="ResumeScrollPane">
       <AuxValues>
